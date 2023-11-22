@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spotify Clone Project</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="icon"
+      href="./images/spotify.png"
+      type="image/x-icon"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;1,100;1,200;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <!-- <link rel="" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={2070338bdfe63e07dd44727eb5c85c05}"
+    />
+    <!-- <link rel="" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-lg-2">
+          <div class="sidebar">
+            <div class="logo">
+              <a href="#">
+                <img src="./images/Spotify_Logo_CMYK_Green.png" alt="Logo" />
+              </a>
+            </div>
+
+            <div class="navigation">
+              <ul>
+                <li>
+                  <a href="http://127.0.0.1:5500/index.html">
+                    <span class="fa fa-home"></span>
+                    <span>Home</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" id="sidebarSearchIcon">
+                    <span class="fa fa-search"></span>
+                    <span>Search</span>
+                  </a>
+                </li>
+                <!-- <li>
+                  <a href="#">
+                    <span class="fa fas fa-book"></span>
+                    <span>Library</span>
+                  </a>
+                </li> -->
+              </ul>
+            </div>
+            <div class="navigation">
+              <ul>
+                <li>
+                  <a href="#playlistTitleRow">
+                    <span class="fa fas fa-plus-square"></span>
+                    <span>Your Playlists</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="" id="recentlyPlayedSection">
+                    <!-- <span class="fa fas fa-plus-square"></span> -->
+                    <!-- <span>Recently Played</span> -->
+                  </a>
+                </li>
+                <li>
+                  <a href="#favSongsTitleRow">
+                    <span class="fa fas fa-heart"></span>
+                    <span>Favourite Songs</span>
+                    <div id="likedSongs"></div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 col-lg-10 pl-0 pr-0">
+          <div class="main-container">
+            <div class="topbar">
+              <div class="prev-next-buttons">
+                <button type="button" class="fa fas fa-chevron-left" id="prevButton"></button>
+                <button type="button" class="fa fas fa-chevron-right" id="nextButton"></button>
+              </div>
+
+              <div id="searchContainer" style="display: none">
+                <div class="form-group has-search">
+                  <input
+                    type="text"
+                    id="searchInput"
+                    class="form-control"
+                    placeholder="Search"
+                  />
+                  <!-- <span class="fa fa-search form-control-feedback"></span> -->
+                  <div id="suggestionsContainer"></div>
+                </div>
+                <!-- <button type="button" id="searchButton">Search</button> -->
+              </div>
+
+              <div class="navbars">
+                <ul>
+                  <li>
+                    <button type="button" class="white-bg">
+                      Explore Premium
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button">
+                      <span class="fa fas fa-arrow-circle-down"></span>Install
+                      App
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button">
+                      <span class="fa fas fa-bell"></span>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button">
+                      <span class="fa fas fa-user"></span>
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="container" id="musicCardsContainer">
+              <!-- Recently played songs section -->
+              <div class="row title_row recentlyPlayedTitleRow" style="display: none;">
+                <h2>Recently Played</h2>
+                <!-- <div class="float-right float-sm-left"><a href="#" id="recShowLessLink" class="btn btn-light btn-sm">Show less</a>
+                            </div> -->
+              </div>
+              <div class="row" id="recentlyPlayedCards"></div>
+
+              <!-- <div class="row title_row">
+                <h2>Playlists</h2>
+                <div class="float-right float-sm-left"><a href="" id="playlistShowAllLink" class="btn btn-light btn-sm">Show all</a></div> 
+              </div>
+              <div class="row" id="playlists"></div> -->
+              <div class="row">
+                <button type="button" class="btn btn-light btn-lg m-3 btn-all">
+                  All
+                </button>
+
+                <button
+                  type="button"
+                  class="btn btn-light btn-lg m-3 btn-tamil"
+                >
+                  Tamil
+                </button>
+
+                <button
+                  type="button"
+                  class="btn btn-light btn-lg m-3 btn-english"
+                >
+                  English
+                </button>
+              </div>
+              <div class="row title_row" id="playlistTitleRow">
+                <h2>Playlists</h2>
+                <div class="float-right float-sm-left" style="visibility:hidden">
+                  <a href="" id="showAllLink" class="btn btn-light btn-sm"
+                    >Show all</a
+                  >
+                </div>
+              </div>
+              <div class="row" id="musicCards"></div>
+
+              <div class="row title_row" id="favSongsTitleRow">
+                <h2>Favourite Songs</h2>
+                <!-- <div class="float-right float-sm-left">
+                  <a
+                    href=""
+                    id="favSongsShowAllLink"
+                    class="btn btn-light btn-sm"
+                    >Show all</a
+                  >
+                </div> -->
+              </div>
+              <div class="row" id="favSongs"></div>
+            </div>
+
+            <div id="player" class="text-center">
+              <div class="card">
+                <div class="card-body">
+                  <div id="nowPlaying" class="d-flex align-items-center" >
+                    <img id="nowPlayingImage" src="./images/spotify.png" alt="Now Playing"  />
+                    <div id="nowPlayingDetails" class="ml-2">
+                      <p id="nowPlayingTitle"></p>
+                      <p id="nowPlayingArtist"></p>
+                    </div>
+                  </div>
+                  <!-- <h5 class="card-title">Now Playing</h5> -->
+                  <audio id="audioPlayer" controls>
+                    Your browser does not support the audio element.
+                  </audio>
+                  <div class="btn-group mt-2">
+                    <button id="previousBtn" class="btn btn-secondary">
+                      Previous
+                    </button>
+                    <button id="playPauseBtn" class="btn btn-primary">
+                      Play
+                    </button>
+                    <button id="nextBtn" class="btn btn-secondary">Next</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="footer">
+              <div class="row d-flex">
+                <div class="d-flex">
+                  <ul>
+                    <li><h4>Company</h4></li>
+                    <li>About</li>
+                    <li>Jobs</li>
+                    <li>For the Record</li>
+                  </ul>
+                </div>
+                <div class="d-flex">
+                  <ul>
+                    <li><h4>Communities</h4></li>
+                    <li>For Artists</li>
+                    <li>Developers</li>
+                    <li>Advertising</li>
+                    <li>Investors</li>
+                    <li>Vendors</li>
+                  </ul>
+                </div>
+                <div class="d-flex">
+                  <ul>
+                    <li><h4>Useful Links</h4></li>
+                    <li>Support</li>
+                    <li>Free Mobile App</li>
+                  </ul>
+                </div>
+                <div class="d-flex social-icons">
+                  <ul>
+                    <li>
+                      <button type="button">
+                        <span class="fa fa-circle fa-instagram"></span>
+                      </button>
+                    </li>
+                    <li>
+                      <button type="button">
+                        <span class="fa fa-circle fa-twitter"></span>
+                      </button>
+                    </li>
+                    <li>
+                      <button type="button">
+                        <span class="fa fa-circle fa-facebook"></span>
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div class="policies">
+              <div class="row ">
+                <div class="col-md-8">
+                  <ul>
+                    <li>Legal</li>
+                    <li>Privacy Center</li>
+                    <li>Privacy Policy</li>
+                    <li>Cookies</li>
+                    <li>About Ads</li>
+                    <li>Accessibility</li>
+                  </ul>
+                </div>
+                <div class="col-md-4 copyright">
+                  <span>&#169; 2023 Spotify AB</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <!-- <script src="script.js"></script> -->
+    <script
+      src="https://kit.fontawesome.com/ef9a692198.js
+"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
